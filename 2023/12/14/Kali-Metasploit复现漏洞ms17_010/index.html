@@ -22,7 +22,7 @@
 
   
 
-  <title>[Kali]Metasploit详解 | xnl2d&#39;s Blog</title>
+  <title>「Metasploit」复现漏洞ms17_010 | xnl2d&#39;s Blog</title>
 
   
 
@@ -93,7 +93,7 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">[Kali]Metasploit详解</h1>
+          <h1 class="title-wrap">「Metasploit」复现漏洞ms17_010</h1>
           <h2 class="title-sub-wrap">
             <strong>xnl2d</strong>
             <span>发布于</span>
@@ -130,17 +130,18 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h1 id="Kali-Metasploit详解"><a href="#Kali-Metasploit详解" class="headerlink" title="[Kali]Metasploit详解"></a><center><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/kali-metasploit-framework.png?raw=true" style="zoom: 60%;" /><font face="仿宋"><strong>[Kali]Metasploit详解</strong></font></center></h1><h2 id="1、打开Metasploit工具"><a href="#1、打开Metasploit工具" class="headerlink" title="1、打开Metasploit工具"></a>1、打开Metasploit工具</h2><p>打开终端，并输入：</p>
+        <h1 id="「Metasploit」复现漏洞ms17-010"><a href="#「Metasploit」复现漏洞ms17-010" class="headerlink" title="「Metasploit」复现漏洞ms17_010"></a><center><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/kali-metasploit-framework.png?raw=true" style="zoom: 60%;" /><font face="仿宋"><strong>「Metasploit」复现漏洞ms17_010</strong></font></center></h1><h2 id="1、打开Metasploit工具"><a href="#1、打开Metasploit工具" class="headerlink" title="1、打开Metasploit工具"></a>1、打开Metasploit工具</h2><p>打开终端，并输入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
 
 <p>即可进入Metasploit工具：</p>
-<img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/1.png?raw=true" style="zoom: 80%;" />
+<img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/1.png?raw=true"  />
 
 <h2 id="2、搜索ms17-010漏洞"><a href="#2、搜索ms17-010漏洞" class="headerlink" title="2、搜索ms17_010漏洞"></a>2、搜索ms17_010漏洞</h2><p>在进入后，显示：“<u>msf6</u> &gt; ”后输入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search ms17_010</span><br></pre></td></tr></table></figure>
 
 <p>此时，回显第一个开头是0的那行就是我们想要的攻击模块：</p>
-<p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/2.png?raw=true"></p>
+<img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/2.png?raw=true"  />
+
 <p>随后输入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 0</span><br></pre></td></tr></table></figure>
 
@@ -149,7 +150,39 @@
 
 <p>这样就选中了我们想要的攻击模块了：</p>
 <p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/3.png?raw=true"></p>
-<h2 id="3、修改模块配置文件"><a href="#3、修改模块配置文件" class="headerlink" title="3、修改模块配置文件"></a>3、修改模块配置文件</h2>
+<h2 id="3、修改模块配置文件"><a href="#3、修改模块配置文件" class="headerlink" title="3、修改模块配置文件"></a>3、修改模块配置文件</h2><p>先使用命令查看所有可修改的配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br></pre></td></tr></table></figure>
+
+<p>此时，回显中看到“Required”这列，只要是标了“yes”的，就代表这项必须配置，反之如果是“no”，那么表示可配可不配：</p>
+<p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/4.png?raw=true"></p>
+<p>这里需要配置第一条“RHOSTS”这行，这个“RHOSTS”代表我们预攻击的主机，这里我填入我的靶机IP，使用命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setg rhosts 192.168.206.146</span><br></pre></td></tr></table></figure>
+
+<p>这里的“setg”表示永久设置靶机IP地址，也就是说，假如使用别的模块，这个攻击地址都不会变。</p>
+<p>但是如果想临时攻击某台靶机，那么只需要使用“set”命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> rhosts 192.168.206.146</span><br></pre></td></tr></table></figure>
+
+<p>看到回显为这样</p>
+<p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/5.png?raw=true"></p>
+<p>就代表设置成功（如果遇到回显为感叹号开头则表示设置的语法有问题）：</p>
+<h2 id="4、攻击测试"><a href="#4、攻击测试" class="headerlink" title="4、攻击测试"></a>4、攻击测试</h2><p>在攻击测试之前，需要确保靶机有关ms17_010的漏洞不存在、被删除，否则在攻击测试实验中会出现攻击不进去的情况。</p>
+<p>进入靶机，打开cmd输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo</span><br></pre></td></tr></table></figure>
+
+<p>在最后的回显中，可以看到补丁列表：</p>
+<p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/6.png?raw=true"></p>
+<p>如果出现相关补丁，需使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wusa</span><br></pre></td></tr></table></figure>
+
+<p>命令卸载补丁，这里就不再演示了。</p>
+<p>回到Kali攻击机，在选择好攻击模块并配置好参数的前提下，直接输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p>即可开始攻击测试：</p>
+<p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/7.png?raw=true"></p>
+<p>耐心等待攻击成功，只要回显中出现“WIN”和“<u>meterpreter</u> &gt;”这两个回显，就代表攻击成功：</p>
+<p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/8.png?raw=true"></p>
+
       </section>
 
       
