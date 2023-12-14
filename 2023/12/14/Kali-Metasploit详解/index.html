@@ -130,9 +130,26 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h1 id="Kali-Metasploit详解"><a href="#Kali-Metasploit详解" class="headerlink" title="[Kali]Metasploit详解"></a><center><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/kali-metasploit-framework.png?raw=true" style="zoom: 60%;" /><font face="仿宋">[Kali]Metasploit详解</font></center></h1><p>test</p>
-<p>test2</p>
+        <h1 id="Kali-Metasploit详解"><a href="#Kali-Metasploit详解" class="headerlink" title="[Kali]Metasploit详解"></a><center><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/kali-metasploit-framework.png?raw=true" style="zoom: 60%;" /><font face="仿宋"><strong>[Kali]Metasploit详解</strong></font></center></h1><h2 id="1、打开Metasploit工具"><a href="#1、打开Metasploit工具" class="headerlink" title="1、打开Metasploit工具"></a>1、打开Metasploit工具</h2><p>打开终端，并输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
 
+<p>即可进入Metasploit工具：</p>
+<img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/1.png?raw=true" style="zoom: 80%;" />
+
+<h2 id="2、搜索ms17-010漏洞"><a href="#2、搜索ms17-010漏洞" class="headerlink" title="2、搜索ms17_010漏洞"></a>2、搜索ms17_010漏洞</h2><p>在进入后，显示：“<u>msf6</u> &gt; ”后输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search ms17_010</span><br></pre></td></tr></table></figure>
+
+<p>此时，回显第一个开头是0的那行就是我们想要的攻击模块：</p>
+<p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/2.png?raw=true"></p>
+<p>随后输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 0</span><br></pre></td></tr></table></figure>
+
+<p>或着输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br></pre></td></tr></table></figure>
+
+<p>这样就选中了我们想要的攻击模块了：</p>
+<p><img src="https://github.com/xnl2d/Github-/blob/main/Post/2023/12/14/3.png?raw=true"></p>
+<h2 id="3、修改模块配置文件"><a href="#3、修改模块配置文件" class="headerlink" title="3、修改模块配置文件"></a>3、修改模块配置文件</h2>
       </section>
 
       
