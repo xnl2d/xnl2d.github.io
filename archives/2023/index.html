@@ -1,20 +1,47 @@
-extends _partial/layout
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css" rel="stylesheet">
+<title>BLOG</title>
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="xnl2d">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BLOG">
+<meta property="og:url" content="http://example.com/archives/2023/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="xnl2d">
+<meta name="twitter:card" content="summary">
+<link rel="shortcut icon" href="">
 
-block title
-  if page.category
-     title= page.category + " | " + config.title
-  if page.tag
-     title= page.tag + " | " + config.title
-  if page.archive
-     title= __('archive') + " | " + config.title
+<link rel="stylesheet" href="/css/common.css">
 
-block content
-  .post__achive
-    each posts, year in _.groupBy(page.posts.toArray(), p => - p.date.format('YYYY'))
-      h2= -year
-      ul.achive__list
-        for post in posts
-          li
-            span.achive__item__date= post.date.format('YYYY/MM/DD')
-            a(href=url_for(post.path), title=post.title)= post.title
-  include _partial/paginator
+
+
+
+  
+<link rel="stylesheet" href="/css/archive.css">
+
+
+
+
+    <meta name="generator" content="Hexo 7.0.0"></head>
+    <body>
+        <div class="archive">
+    <img class="avatar" src=""/>
+    <div class="nav-bar">
+    
+</div>
+    <div class="tag-cloud">
+    
+</div>
+</div>
+        <footer class="footer">Powered By <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> With Theme <a target="_blank" rel="noopener" href="https://github.com/EvanLuo42/oliver">Oliver</a></footer>
+        <footer class="footer"></footer>
+    </body>
+</html>
